@@ -1,0 +1,82 @@
+
+####################### Test 1
+cat test/test1.snek
+    (add1 (add1 (add1 5)))
+
+make test/test1.s
+    section .text
+    global our_code_starts_here
+    our_code_starts_here:
+        mov rax, 5
+add rax, 1
+add rax, 1
+add rax, 1
+        ret
+
+./test/test1.run
+    8
+
+####################### Test 2
+cat test/test2.snek
+    (sub1 -10)
+
+make test/test2.s
+    section .text
+    global our_code_starts_here
+    our_code_starts_here:
+        mov rax, -10
+sub rax, 1
+        ret
+
+./test/test2.run
+    -11
+
+####################### Test 3
+cat test/test3.snek
+    (negate -8)
+
+make test/test3.s
+    section .text
+    global our_code_starts_here
+    our_code_starts_here:
+        mov rax, -8
+neg rax
+        ret
+
+./test/test3.run
+    8
+
+####################### Test 4
+cat test/test4.snek
+    (negate (negate (negate (negate 6))))
+
+make test/test4.s
+    section .text
+    global our_code_starts_here
+    our_code_starts_here:
+        mov rax, 6
+neg rax
+neg rax
+neg rax
+neg rax
+        ret
+
+./test/test4.run
+    6
+
+####################### Test 5
+cat test/test5.snek
+    (negate (sub1 (add1 3)))
+
+make test/test5.s
+    section .text
+    global our_code_starts_here
+    our_code_starts_here:
+        mov rax, 3
+add rax, 1
+sub rax, 1
+neg rax
+        ret
+
+./test/test5.run
+    -3
